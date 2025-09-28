@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceConfigurations", "ServiceConfigurations\ServiceConfigurations.csproj", "{AE357BC8-918E-4E50-B59F-CEF23A248AC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{AE357BC8-918E-4E50-B59F-CEF23A248AC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{00BCA7C3-95C0-4E97-837B-7AB282D90583}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{AF403156-81C7-4DB0-A7ED-93C9B178C13D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "Core.Test\Core.Test.csproj", "{AB059280-F035-4BBD-BF4A-DC3E0DD4FCDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifiers", "Notifiers\Notifiers.csproj", "{A7FC7DAE-FFAC-4472-B377-899484337907}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifiers.Test", "Notifiers.Test\Notifiers.Test.csproj", "{B3F3E45A-533F-435A-AF77-FB109B67A649}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,30 @@ Global
 		{AB059280-F035-4BBD-BF4A-DC3E0DD4FCDB}.Release|x64.Build.0 = Release|Any CPU
 		{AB059280-F035-4BBD-BF4A-DC3E0DD4FCDB}.Release|x86.ActiveCfg = Release|Any CPU
 		{AB059280-F035-4BBD-BF4A-DC3E0DD4FCDB}.Release|x86.Build.0 = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|x64.Build.0 = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Debug|x86.Build.0 = Debug|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|x64.ActiveCfg = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|x64.Build.0 = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|x86.ActiveCfg = Release|Any CPU
+		{A7FC7DAE-FFAC-4472-B377-899484337907}.Release|x86.Build.0 = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|x64.Build.0 = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Debug|x86.Build.0 = Debug|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|x64.ActiveCfg = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|x64.Build.0 = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|x86.ActiveCfg = Release|Any CPU
+		{B3F3E45A-533F-435A-AF77-FB109B67A649}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

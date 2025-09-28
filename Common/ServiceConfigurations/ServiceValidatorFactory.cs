@@ -1,4 +1,4 @@
-namespace ServiceConfigurations;
+namespace Common.ServiceConfigurations;
 
 internal class ServiceValidatorFactory
 {

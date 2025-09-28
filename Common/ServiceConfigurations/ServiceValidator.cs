@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace ServiceConfigurations;
+namespace Common.ServiceConfigurations;
 
 internal interface IServiceValidator
 {

@@ -1,9 +1,9 @@
+using Common.ServiceConfigurations;
 using IPhoneStockChecker.Core.Browsers;
 using IPhoneStockChecker.Core.Checkers;
 using IPhoneStockChecker.Core.Settings;
 using IPhoneStockChecker.Core.Workflows;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceConfigurations;
 
 namespace IPhoneStockChecker.Core.ServiceConfigurations;
 

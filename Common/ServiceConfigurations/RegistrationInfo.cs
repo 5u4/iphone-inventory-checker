@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ServiceConfigurations;
+namespace Common.ServiceConfigurations;
 
 internal record RegistrationInfo
 {
