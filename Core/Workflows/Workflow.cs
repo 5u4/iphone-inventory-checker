@@ -1,6 +1,9 @@
 using IPhoneStockChecker.Core.Browsers;
 using IPhoneStockChecker.Core.Checkers;
 using IPhoneStockChecker.Core.Settings;
+using Microsoft.Playwright;
+using Polly;
+using Polly.Retry;
 
 namespace IPhoneStockChecker.Core.Workflows;
 
@@ -27,27 +30,67 @@ internal class Workflow(
 
         await using var browser = await browserFactory.Create(playwright);
 
-        var page = await browser.NewPageAsync();
+        var resiliencePipeline = CreateResiliencePipeline();
 
-        var inventoryPage = await inventoryPageFactory.Create(page);
-
-        while (!ct.IsCancellationRequested)
-        {
-            var hasInventory = await inventoryChecker.CheckInventory(inventoryPage);
-
-            if (hasInventory)
+        await resiliencePipeline.ExecuteAsync(
+            async cancellationToken =>
             {
-                InventoryFound?.Invoke(this, EventArgs.Empty);
+                await Execute(browser, cancellationToken);
+            },
+            ct
+        );
+    }
 
-                await screenshotMaker.Screenshot(inventoryPage.Page, "InventoryFound");
+    private async Task Execute(IBrowser browser, CancellationToken ct)
+    {
+        IPage? page = null;
+        try
+        {
+            page = await browser.NewPageAsync();
+
+            var inventoryPage = await inventoryPageFactory.Create(page);
+
+            while (!ct.IsCancellationRequested)
+            {
+                var hasInventory = await inventoryChecker.CheckInventory(inventoryPage);
+
+                if (hasInventory)
+                {
+                    InventoryFound?.Invoke(this, EventArgs.Empty);
+
+                    await screenshotMaker.Screenshot(inventoryPage.Page, "InventoryFound");
+                }
+
+                // randomize by +-10%
+                var randomizedInterval = TimeSpan.FromMilliseconds(
+                    settings.CheckInterval.TotalMilliseconds
+                        * (0.9 + Random.Shared.NextDouble() * 0.2)
+                );
+
+                await Task.Delay(randomizedInterval, ct);
             }
-
-            // randomize by +-10%
-            var randomizedInterval = TimeSpan.FromMilliseconds(
-                settings.CheckInterval.TotalMilliseconds * (0.9 + Random.Shared.NextDouble() * 0.2)
-            );
-
-            await Task.Delay(randomizedInterval, ct);
         }
+        finally
+        {
+            if (page != null)
+            {
+                await page.CloseAsync();
+            }
+        }
+    }
+
+    private ResiliencePipeline CreateResiliencePipeline()
+    {
+        return new ResiliencePipelineBuilder()
+            .AddRetry(
+                new RetryStrategyOptions
+                {
+                    BackoffType = DelayBackoffType.Exponential,
+                    Delay = TimeSpan.FromMinutes(2),
+                    MaxDelay = TimeSpan.FromMinutes(10),
+                    UseJitter = true,
+                }
+            )
+            .Build();
     }
 }
