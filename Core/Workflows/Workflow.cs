@@ -47,7 +47,12 @@ internal class Workflow(
                 );
             }
 
-            await Task.Delay(settings.CheckInterval, ct);
+            // randomize by +-10%
+            var randomizedInterval = TimeSpan.FromMilliseconds(
+                settings.CheckInterval.TotalMilliseconds * (0.9 + Random.Shared.NextDouble() * 0.2)
+            );
+
+            await Task.Delay(randomizedInterval, ct);
         }
     }
 }
