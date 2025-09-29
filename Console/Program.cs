@@ -3,6 +3,7 @@ using IPhoneStockChecker.Console;
 using IPhoneStockChecker.Console.ServiceConfigurations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 Env.Load();
 
@@ -16,6 +17,7 @@ serviceComponent.Verify();
 
 var services = new ServiceCollection();
 serviceComponent.Configure(services);
+services.AddLogging(builder => builder.AddConsole());
 
 var serviceProvider = services.BuildServiceProvider();
 

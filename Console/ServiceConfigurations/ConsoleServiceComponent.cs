@@ -5,11 +5,14 @@ using IPhoneStockChecker.Notifiers.ServiceConfigurations;
 using IPhoneStockChecker.Notifiers.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace IPhoneStockChecker.Console.ServiceConfigurations;
 
 public class ConsoleServiceComponent(IConfiguration configuration) : BaseServiceComponent
 {
+    protected override IReadOnlyList<Type> ExternalTypes => [typeof(ILogger<>)];
+
     protected override IReadOnlyList<BaseServiceComponent> Components =>
         [new StockCheckerServiceComponent(), new NotifierServiceComponent()];
 
