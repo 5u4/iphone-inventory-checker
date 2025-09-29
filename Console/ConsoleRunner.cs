@@ -68,7 +68,7 @@ internal class ConsoleRunner(
                 new Notification
                 {
                     Message = e.Message,
-                    Severity = NotificationSeverity.Max,
+                    Severity = NotificationSeverity.Default,
                     Properties = new Dictionary<NotifierProperty, object>
                     {
                         [NotifierProperty.Title] = "Error",

@@ -85,10 +85,10 @@ internal class Workflow(
             .AddRetry(
                 new RetryStrategyOptions
                 {
-                    BackoffType = DelayBackoffType.Exponential,
+                    BackoffType = DelayBackoffType.Constant,
                     Delay = TimeSpan.FromMinutes(2),
-                    MaxDelay = TimeSpan.FromMinutes(10),
                     UseJitter = true,
+                    MaxRetryAttempts = 100,
                 }
             )
             .Build();
