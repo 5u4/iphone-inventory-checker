@@ -3,7 +3,7 @@ using IPhoneStockChecker.Console;
 using IPhoneStockChecker.Console.ServiceConfigurations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 Env.Load();
 
@@ -16,8 +16,14 @@ var serviceComponent = new ConsoleServiceComponent(config);
 serviceComponent.Verify();
 
 var services = new ServiceCollection();
+
+services.AddLogging();
+services.AddSerilog(o =>
+{
+    o.ReadFrom.Configuration(config);
+});
+
 serviceComponent.Configure(services);
-services.AddLogging(builder => builder.AddConsole());
 
 var serviceProvider = services.BuildServiceProvider();
 
