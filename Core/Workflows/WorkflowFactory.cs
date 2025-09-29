@@ -14,7 +14,8 @@ internal class WorkflowFactory(
     IPlaywrightFactory playwrightFactory,
     IBrowserFactory browserFactory,
     IInventoryPageFactory inventoryPageFactory,
-    IInventoryChecker inventoryChecker
+    IInventoryChecker inventoryChecker,
+    IScreenshotMaker screenshotMaker
 ) : IWorkflowFactory
 {
     public IWorkflow Create()
@@ -24,7 +25,8 @@ internal class WorkflowFactory(
             playwrightFactory,
             browserFactory,
             inventoryPageFactory,
-            inventoryChecker
+            inventoryChecker,
+            screenshotMaker
         );
     }
 }

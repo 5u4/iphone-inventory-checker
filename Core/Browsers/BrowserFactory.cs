@@ -18,6 +18,7 @@ internal class BrowserFactory(IBrowserSettings settings) : IBrowserFactory
             {
                 Headless = settings.Headless,
                 Timeout = settings.TimeoutInMilliseconds,
+                SlowMo = settings.SlowMoInMilliseconds,
             }
         );
     }

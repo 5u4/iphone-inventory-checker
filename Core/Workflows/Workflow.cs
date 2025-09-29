@@ -1,7 +1,6 @@
 using IPhoneStockChecker.Core.Browsers;
 using IPhoneStockChecker.Core.Checkers;
 using IPhoneStockChecker.Core.Settings;
-using Microsoft.Playwright;
 
 namespace IPhoneStockChecker.Core.Workflows;
 
@@ -16,7 +15,8 @@ internal class Workflow(
     IPlaywrightFactory playwrightFactory,
     IBrowserFactory browserFactory,
     IInventoryPageFactory inventoryPageFactory,
-    IInventoryChecker inventoryChecker
+    IInventoryChecker inventoryChecker,
+    IScreenshotMaker screenshotMaker
 ) : IWorkflow
 {
     public event EventHandler? InventoryFound;
@@ -39,12 +39,7 @@ internal class Workflow(
             {
                 InventoryFound?.Invoke(this, EventArgs.Empty);
 
-                await inventoryPage.Page.ScreenshotAsync(
-                    new PageScreenshotOptions
-                    {
-                        Path = $"InventoryFound.{DateTimeOffset.Now.ToUnixTimeSeconds()}.png",
-                    }
-                );
+                await screenshotMaker.Screenshot(inventoryPage.Page, "InventoryFound");
             }
 
             // randomize by +-10%
