@@ -7,7 +7,8 @@
 Install required browsers
 
 ```sh
+cd Console
 dotnet build
 dotnet tool update --global PowerShell
-pwsh bin/Debug/net9.0/playwright.ps1 install
+pwsh bin/Debug/net9.0/playwright.ps1 install chrome
 ```
