@@ -22,7 +22,7 @@ internal class ConsoleRunner(
     {
         var notifierProvider = notifierProviderFactory.Create(notifierSettings);
         var notifyRunner = notifyRunnerFactory.Create();
-        _ = notifyRunner.Run(notifierProvider, ct);
+        var notifyRunnerTask = notifyRunner.Run(notifierProvider, ct);
 
         var workflow = workflowFactory.Create();
         workflow.InventoryFound += (_, _) =>
@@ -77,5 +77,7 @@ internal class ConsoleRunner(
                 }
             );
         }
+
+        await notifyRunnerTask;
     }
 }
