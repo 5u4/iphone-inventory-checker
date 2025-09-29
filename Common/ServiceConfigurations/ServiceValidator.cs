@@ -32,7 +32,12 @@ internal class ServiceValidator(IReadOnlyDictionary<Type, RegistrationInfo> regi
         var mutableTouched = new HashSet<Type>();
         touched = mutableTouched;
 
-        if (info.IsExternal)
+        if (
+            info.IsExternal
+            || info.ServiceDescriptor.ServiceType.FullName?.StartsWith(
+                "Microsoft.Extensions.Options.IOptions"
+            ) == true // TODO
+        )
         {
             return;
         }

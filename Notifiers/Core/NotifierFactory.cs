@@ -12,12 +12,14 @@ internal class NotifierFactory(INtfyNotifierFactory ntfyNotifierFactory) : INoti
 {
     public INotifier Create(INotifierSettings settings)
     {
-        return settings switch
+        if (settings is INtfyNotifierSettings ntfySettings)
         {
-            INtfyNotifierSettings or NtfyNotifierSettings => ntfyNotifierFactory.Create(
-                settings as INtfyNotifierSettings ?? throw new InvalidOperationException()
-            ),
-            _ => throw new ArgumentOutOfRangeException(nameof(settings)),
-        };
+            return ntfyNotifierFactory.Create(ntfySettings);
+        }
+
+        throw new ArgumentOutOfRangeException(
+            nameof(settings),
+            $"Unsupported notifier settings type: {settings.GetType()}"
+        );
     }
 }

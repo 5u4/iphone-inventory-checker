@@ -11,3 +11,12 @@ public interface IConsoleAppSettings
     IWorkflowSettings Workflow { get; }
     IEnumerable<INotifierSettings> Notifiers { get; }
 }
+
+public record ConsoleAppSettings : IConsoleAppSettings
+{
+    public required IBrowserSettings Browser { get; init; }
+    public required IInventoryPageSettings InventoryPage { get; init; }
+    public required IInventoryCheckerSettings InventoryChecker { get; init; }
+    public required IWorkflowSettings Workflow { get; init; }
+    public required IEnumerable<INotifierSettings> Notifiers { get; init; }
+}

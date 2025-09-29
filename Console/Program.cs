@@ -1,16 +1,17 @@
-﻿using Config.Net;
+﻿using DotNetEnv;
 using IPhoneStockChecker.Console;
 using IPhoneStockChecker.Console.ServiceConfigurations;
-using IPhoneStockChecker.Console.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-var settings = new ConfigurationBuilder<IConsoleAppSettings>()
-    .UseEnvironmentVariables()
-    .UseDotEnvFile()
-    .UseJsonFile("appsettings.json")
+Env.Load();
+
+var config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", false, false)
+    .AddEnvironmentVariables()
     .Build();
 
-var serviceComponent = new ConsoleServiceComponent(settings);
+var serviceComponent = new ConsoleServiceComponent(config);
 serviceComponent.Verify();
 
 var services = new ServiceCollection();

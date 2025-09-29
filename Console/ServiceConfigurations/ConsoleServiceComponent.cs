@@ -1,27 +1,43 @@
-using System.Collections.Immutable;
 using Common.ServiceConfigurations;
-using IPhoneStockChecker.Console.Settings;
 using IPhoneStockChecker.Core.ServiceConfigurations;
+using IPhoneStockChecker.Core.Settings;
 using IPhoneStockChecker.Notifiers.ServiceConfigurations;
 using IPhoneStockChecker.Notifiers.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IPhoneStockChecker.Console.ServiceConfigurations;
 
-public class ConsoleServiceComponent(IConsoleAppSettings settings) : BaseServiceComponent
+public class ConsoleServiceComponent(IConfiguration configuration) : BaseServiceComponent
 {
     protected override IReadOnlyList<BaseServiceComponent> Components =>
         [new StockCheckerServiceComponent(), new NotifierServiceComponent()];
 
     protected override void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton(settings.Browser);
-        services.AddSingleton(settings.InventoryPage);
-        services.AddSingleton(settings.InventoryChecker);
-        services.AddSingleton(settings.Workflow);
-        services.AddSingleton<IReadOnlyList<INotifierSettings>>(
-            settings.Notifiers.ToImmutableArray()
+        services.AddSettings<IBrowserSettings, BrowserSettings>(
+            configuration.GetSection("Browser")
         );
+
+        services.AddSettings<IInventoryPageSettings, InventoryPageSettings>(
+            configuration.GetSection("InventoryPage")
+        );
+
+        services.AddSettings<IInventoryCheckerSettings, InventoryCheckerSettings>(
+            configuration.GetSection("InventoryChecker")
+        );
+
+        services.AddSettings<IWorkflowSettings, WorkflowSettings>(
+            configuration.GetSection("Workflow")
+        );
+
+        services.AddSettings<INotifierSettings, NtfyNotifierSettings>(
+            configuration.GetSection("Notifier")
+        );
+
+        services.AddSingleton<IReadOnlyList<INotifierSettings>>(sp =>
+            [sp.GetRequiredService<INotifierSettings>()]
+        ); // TODO
 
         services.AddTransient<IConsoleRunner, ConsoleRunner>();
     }
